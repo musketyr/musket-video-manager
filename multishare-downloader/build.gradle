@@ -34,6 +34,7 @@ distZip {
     archiveName = 'multishare-downloader.zip'
 }
 
-distTart {
-    archiveName = 'multishare-downloader.tar'
+distTar {
+    archiveName = 'multishare-downloader.tar.gz'
+    compression = org.gradle.api.tasks.bundling.Compression.GZIP
 }
