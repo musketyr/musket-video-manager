@@ -27,3 +27,5 @@ dependencies {
 test {
     systemProperties "geb.build.reportsDir": "$reportsDir/geb"
 }
+
+mainClassName = "cz.orany.musket.download.multishare.MultishareDownloader"

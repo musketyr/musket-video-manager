@@ -6,7 +6,7 @@ import spock.lang.Stepwise
 
 
 @Stepwise
-class ScraperSpec extends GebReportingSpec {
+class MultishareDownloaderSpec extends GebReportingSpec {
 
     MultishareDownloader downloader = MultishareDownloader.create(System.getenv('MULTISHARE_USERNAME') ?: System.getProperty('multishare.username'), System.getenv('MULTISHARE_PASSWORD') ?: System.getProperty('multishare.password'))
 

@@ -58,4 +58,26 @@ class MultishareDownloader {
         return new MultishareFile(filename, url)
     }
 
+    public static final String USAGE = """Usage: username:password "https://www.mutlishare.cz/...url..." /path/to/download/folder"""
+
+    static void main(String... args) {
+        if (args.size() != 3) {
+            println USAGE
+            System.exit(1)
+            return
+        }
+
+        if (!args[0].contains(':')) {
+            println USAGE
+            System.exit(1)
+            return
+        }
+
+        String[] credentials = args[0].split(':')
+
+        MultishareDownloader downloader = create(credentials[0], credentials[1])
+
+        println downloader.getFile(args[1]).saveInto(new File(args[2])).canonicalPath
+        System.exit(0)
+    }
 }
