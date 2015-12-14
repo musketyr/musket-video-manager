@@ -1,9 +1,12 @@
 language: groovy
+
 jdk:
-- oraclejdk8
+  - oraclejdk8
 script:
-- ./gradlew test
+  - ./gradlew test
+
 before_deploy: ./gradlew :multishare-downloader:assemble
+
 deploy:
   provider: releases
   api_key:
