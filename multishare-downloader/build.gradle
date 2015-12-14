@@ -29,3 +29,11 @@ test {
 }
 
 mainClassName = "cz.orany.musket.download.multishare.MultishareDownloader"
+
+distZip {
+    archiveName = 'multishare-downloader.zip'
+}
+
+distTart {
+    archiveName = 'multishare-downloader.tar'
+}

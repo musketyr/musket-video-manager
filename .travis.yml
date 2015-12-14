@@ -12,8 +12,7 @@ deploy:
   api_key:
     secure: BA00WVJFGTaBG3rX4uR5U5+fu8Tb5YRJlnqp3nPTlJg3H3gSD35vABupDAL7eL4PKTHu45IaDdYY3sIw48vzOsyCgvDgVb2zNO/GLfiEmaDUwyJI5QH2Srke8PXeUvFNHrx+U3IrIGMruq0PhEM/4Yp611yC2gIUE9jZpWd690n6bR4pfr8gxxDVj1VfGzp1TTNM5uaK00SkysaIZidXnv+kjZuBGkiSqxj2oyZzYj2RW/xfquy5GPo3wGsPAXp8niGsMCAKUsVuvWydaDXcoUc+5azhUi4T8nPsQyn9lCejXqxlW6HDUdoydcXkS36QaqB5cJhxrKSdfssYW9mil8lnT3y2+N9FVnli/yXzA22wSSkHt1S/9/3vD8ylTXUkiIPzBxTrjBnHIAFK+NohMBlz7akeEY32xKYLXd+/Q/cRyBruZs8VXOVYNIxUWJ7EmexO9qclk4ts06qfX3nqm+/vRIXTBk1js3qIpdPFB45hYuJBhYxyHGFncZhULxFbHN/6JJl9VK8G0Cq/pbi1mwTbg7O/B/E1GbXVkAraojFpPg43UIB1bJL7z179CYniMVz3IE2LxgtJtGAMBOnZiq67wES/lyefzIQR3WT9WDw25+bDDJrOEDdLSkVcSqu4Jx7ioLn8JW+1ewFelAf0ISUzaoXyH45pjEuojG5WN+4=
   file:
-    - "multishare-downloader/build/distributions/multishare-downloader-$TRAVIS_TAG.tar"
-    - "multishare-downloader/build/distributions/multishare-downloader-$TRAVIS_TAG.zip"
+    - "multishare-downloader/build/distributions/multishare-downloader.tar"
+    - "multishare-downloader/build/distributions/multishare-downloader.zip"
   on:
     tags: true
-    repo: musketyr/musket-video-manager
