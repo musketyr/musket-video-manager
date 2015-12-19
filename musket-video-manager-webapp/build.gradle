@@ -14,5 +14,15 @@ repositories {
 }
 
 dependencies {
+    compile project(':multishare-downloader')
     runtime "org.slf4j:slf4j-simple:1.7.12"
+}
+
+distZip {
+    archiveName = 'musket-video-manager-webapp.zip'
+}
+
+distTar {
+    archiveName = 'musket-video-manager-webapp.tar.gz'
+    compression = org.gradle.api.tasks.bundling.Compression.GZIP
 }

@@ -6,8 +6,6 @@ import java.util.regex.Pattern
 
 class MultishareDownloader {
 
-    private static final Pattern DOWNLOAD_TEXT_PATTERN = Pattern.compile('file|stah?nout soubor', Pattern.CASE_INSENSITIVE)
-
     private final String username
     private final String password
 
@@ -49,11 +47,12 @@ class MultishareDownloader {
                 go fileUrl
             }
 
-            waitFor { $('a', text: contains(DOWNLOAD_TEXT_PATTERN)).displayed }
-            url = $('a', text: contains(DOWNLOAD_TEXT_PATTERN)).attr('href')
             waitFor { $('.file-detail h1').displayed }
-
             filename = $('.file-detail h1').text()
+
+            waitFor { $('a').find{ it.text()?.toLowerCase()?.contains('file') && it.attr('href') }.displayed }
+            url = $('a').find{ it.text()?.toLowerCase()?.contains('file') && it.attr('href') }.attr('href')
+
         }
         return new MultishareFile(filename, url)
     }
@@ -77,7 +76,7 @@ class MultishareDownloader {
 
         MultishareDownloader downloader = create(credentials[0], credentials[1])
 
-        println downloader.getFile(args[1]).saveInto(new File(args[2])).canonicalPath
+        println downloader.getFile(args[1]).saveInto(new File(args[2]), DownloadProgressListener.CONSOLE).canonicalPath
         System.exit(0)
     }
 }

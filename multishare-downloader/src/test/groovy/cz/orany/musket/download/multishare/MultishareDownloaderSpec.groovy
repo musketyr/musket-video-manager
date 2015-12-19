@@ -21,16 +21,16 @@ class MultishareDownloaderSpec extends GebReportingSpec {
 
 
     def "open a file"() {
-        MultishareFile file = downloader.getFile("https://www.multishare.cz/stahnout/765179/02x02-small-tears-srt")
+        MultishareFile file = downloader.getFile("https://www.multishare.cz/stahnout/767839/texticek-txt")
 
         expect:
         file
         file.url
         file.url.startsWith('http://dl')
-        file.filename == '02x02 - Small Tears.srt'
+        file.filename == 'texticek.txt'
 
         when:
-        File newFile = file.saveInto new File("/tmp")
+        File newFile = file.saveInto new File("/tmp"), DownloadProgressListener.CONSOLE
 
         then:
         newFile.exists()
