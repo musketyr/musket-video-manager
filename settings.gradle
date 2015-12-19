@@ -1,1 +1,1 @@
-include 'multishare-downloader'
+include 'multishare-downloader', 'musket-video-manager-webapp'
