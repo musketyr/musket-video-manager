@@ -5,9 +5,6 @@ import ratpack.exec.Promise
 import ratpack.form.Form
 import ratpack.groovy.template.MarkupTemplateModule
 
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-
 import static ratpack.groovy.Groovy.groovyMarkupTemplate
 import static ratpack.groovy.Groovy.ratpack
 
@@ -31,15 +28,17 @@ ratpack {
                 String url = f['url']
 
 
-                new Thread({
-                    MultishareDownloader downloader = MultishareDownloader.create(System.getenv('MULTISHARE_USERNAME'), System.getenv('MULTISHARE_PASSWORD'))
-                    MultishareFile file = downloader.getFile(url)
-                    InMemoryDownloadProgressListener.INSTANCE.addFile(file.filename)
-                    file.saveInto(new File(System.getenv('MULTISHARE_FOLDER')), InMemoryDownloadProgressListener.INSTANCE)
-                }).start()
-
-                redirect '/'
-
+                Promise.of { down ->
+                    new Thread({
+                        MultishareDownloader downloader = MultishareDownloader.create(System.getenv('MULTISHARE_USERNAME'), System.getenv('MULTISHARE_PASSWORD'))
+                        MultishareFile file = downloader.getFile(url)
+                        InMemoryDownloadProgressListener.INSTANCE.addFile(file.filename)
+                        down.success('QUEUED')
+                        file.saveInto(new File(System.getenv('MULTISHARE_FOLDER')), InMemoryDownloadProgressListener.INSTANCE)
+                    }).start()
+                }.then {
+                    context.redirect '/'
+                }
             }
         }
     }
