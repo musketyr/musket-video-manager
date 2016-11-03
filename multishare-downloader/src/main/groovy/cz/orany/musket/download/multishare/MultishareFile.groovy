@@ -15,9 +15,13 @@ class MultishareFile {
         File newFile = new File(destinationFolder, filename)
 
 
-        URLConnection connection = new URL(url).openConnection()
+        HttpURLConnection connection = new URL(url).openConnection() as HttpURLConnection
 
         int contentLength = connection.getHeaderFieldInt('Content-Length', -1)
+
+        if (connection.responseCode in [301, 302]) {
+            return new MultishareFile(filename, connection.getHeaderField('Location')).saveInto(destinationFolder, progressListener)
+        }
 
         connection.inputStream.withStream { InputStream is ->
             newFile.withOutputStream { OutputStream os ->
