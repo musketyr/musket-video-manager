@@ -1,12 +1,11 @@
 package cz.orany.musket.download.multishare
 
-import geb.spock.GebReportingSpec
-
+import spock.lang.Specification
 import spock.lang.Stepwise
 
 
 @Stepwise
-class MultishareDownloaderSpec extends GebReportingSpec {
+class MultishareDownloaderSpec extends Specification {
 
     MultishareDownloader downloader = MultishareDownloader.create(System.getenv('MULTISHARE_USERNAME') ?: System.getProperty('multishare.username'), System.getenv('MULTISHARE_PASSWORD') ?: System.getProperty('multishare.password'))
 

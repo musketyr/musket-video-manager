@@ -19,10 +19,6 @@ class MultishareFile {
 
         int contentLength = connection.getHeaderFieldInt('Content-Length', -1)
 
-        if (connection.responseCode in [301, 302]) {
-            return new MultishareFile(filename, connection.getHeaderField('Location')).saveInto(destinationFolder, progressListener)
-        }
-
         connection.inputStream.withStream { InputStream is ->
             newFile.withOutputStream { OutputStream os ->
                 copyStream(is, os, contentLength, progressListener)
