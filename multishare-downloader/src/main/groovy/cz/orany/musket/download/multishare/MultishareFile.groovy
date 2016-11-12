@@ -1,5 +1,11 @@
 package cz.orany.musket.download.multishare
 
+import org.apache.http.HttpResponse
+import org.apache.http.client.HttpClient
+import org.apache.http.client.methods.HttpGet
+import org.apache.http.impl.client.HttpClientBuilder
+import org.apache.http.impl.client.LaxRedirectStrategy
+
 class MultishareFile {
 
     final String filename
@@ -14,21 +20,23 @@ class MultishareFile {
     File saveInto(File destinationFolder, DownloadProgressListener progressListener = DownloadProgressListener.NULL) {
         File newFile = new File(destinationFolder, filename)
 
+        HttpClient client = HttpClientBuilder
+                .create()
+                .setRedirectStrategy(new LaxRedirectStrategy())
+                .build()
 
-        HttpURLConnection connection = new URL(url).openConnection() as HttpURLConnection
+        HttpGet get = new HttpGet(url)
+        HttpResponse response = client.execute(get)
+        response.entity.contentLength
 
-        int contentLength = connection.getHeaderFieldInt('Content-Length', -1)
-
-        connection.inputStream.withStream { InputStream is ->
-            newFile.withOutputStream { OutputStream os ->
-                copyStream(is, os, contentLength, progressListener)
-            }
+        newFile.withOutputStream { OutputStream os ->
+            copyStream(response.entity.content, os, response.entity.contentLength, progressListener)
         }
 
         newFile
     }
 
-    private void copyStream(InputStream input, OutputStream output, int contentLength, DownloadProgressListener progressListener) throws IOException {
+    private void copyStream(InputStream input, OutputStream output, long contentLength, DownloadProgressListener progressListener) throws IOException {
         byte[] buffer = new byte[4 * 1024]; // Adjust if you want
         int bytesRead;
         int total = 0;
